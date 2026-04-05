@@ -1,4 +1,5 @@
 function ClearCache() {
 # Clear application cache
+	echo "Clearing Cache..."
 	rm -rf seopanel/tmp/cache/*
 }
