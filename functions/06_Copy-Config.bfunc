@@ -7,10 +7,12 @@ fi
 
 function CopyOldConfig() {
 # Copy your old config to new installation
-	cp seopanel_old_*/config/sp-config.php seopanel/config/
+	echo "Found old config.  Copying..."
+	cp -v seopanel_old_*/config/sp-config.php seopanel/config/
 }
 
 function CopyConfigFromSample() {
 # If that file doesn't exist, copy from sample
-	cp seopanel/config/sp-config-sample.php seopanel/config/sp-config.php
+	echo "Old config NOT found!  Copying from sample..."
+	cp -v seopanel/config/sp-config-sample.php seopanel/config/sp-config.php
 }
