@@ -1,0 +1,100 @@
+function UpdateCron() {
+# TODO: How to perform the edit via script (sed probably won't work!
+# 	Google 'How To Eedit Crontab via BASH script'
+
+
+## METHOD 1: Add an Entry (Non-Destructive
+# The safest way to append a new job is to list the existing entries, append your new command, and pipe the entire output back into crontab.
+
+	# EXAMPLE #
+	###############################################################################
+	# Add a job to run every day at 9 AM					      #
+	# (crontab -l 2>/dev/null; echo "0 9 * * * /path/to/script.sh") | crontab -   #
+	###############################################################################
+
+
+
+
+# METHOD 2: Add an Entry Without Duplicates
+# To prevent adding the same job multiple times, use grep to check for its existence before appending.
+
+	# EXAMPLE #
+	##############################################################################
+	# JOB="0 9 * * * /path/to/script.sh"					     #
+	# (crontab -l | grep -v -F "$JOB"; echo "$JOB") | crontab -		     #
+	##############################################################################
+	
+	# Explanation #
+	# grep -v removes the existing line if it exists.
+	# grep -F treats the string literally to avoid issues with special characters like *.
+
+
+
+
+# METHOD 3:  Replace or Update an Entry
+# Use sed within the pipeline to find and replace specific patterns in your crontab.
+#
+	# EXAMPLE #
+	###############################################################################################
+	## Change a job from every 5 minutes to every 10 minutes				      #
+	# crontab -l | sed 's|*/5 * * * * /old/script.sh|*/10 * * * * /new/script.sh|' | crontab -    #
+	###############################################################################################
+
+
+
+
+# METHOD 4: Remove a Specific Entry
+# You can remove a line by piping the current list through grep -v.
+#
+	# EXAMPLE #
+	#########################################################
+	# # Remove all lines containing 'backup.sh'		#
+	# crontab -l | grep -v "backup.sh" | crontab -	        #
+	#########################################################
+
+
+
+# METHOD 5: Overwrite Entire Crontab
+# If you want to replace all existing jobs with a specific set, you can pass a heredoc or a file directly to crontab.
+#
+	# EXAMPLE #
+	#########################################
+	# crontab <<EOF				#
+	# 0 0 * * * /path/to/daily_cleanup.sh	#
+	# @reboot /path/to/startup_task.sh	#
+	# EOF					#
+	#########################################
+
+
+# METHOD 6: Using /etc/cron.d/ (Root Only)
+# For scripts with root privileges, it is often "cleaner" to create a separate file in the /etc/cron.d/ directory.
+# Be sure to check if root first!
+
+	# Root Check #
+	# if [ "$EUID" -ne 0 ]; then
+	#  echo "Please run as root"
+	#  exit
+	# fi
+
+	# EXAMPLE #
+	#########################################
+	# crontab <<EOF				#
+	# 0 0 * * * /path/to/daily_cleanup.sh	#
+	# @reboot /path/to/startup_task.sh	#
+	# EOF					#
+	#########################################
+	# Note: Files in /etc/cron.d/ require an extra field for the username to run as.
+
+
+
+
+
+############################################################################################################
+# TODO: Place Updated Code Here #
+
+# Edit crontab
+	crontab -e
+
+# Ensure paths point to new installation
+	*/30 * * * * php /var/www/html/seopanel/cron.php
+}

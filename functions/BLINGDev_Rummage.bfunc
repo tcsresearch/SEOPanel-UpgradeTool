@@ -1,0 +1,109 @@
+# Rummage (RUnMainGEnerator) - Generates a RunMain.sh script from files in a folder.
+# This library will read scripts in a directory and save the functions to a list file (RunMain.sh) for use with BLINGDev-GenerateCase.
+
+# This function will be superceded by a --displayonly or --test parameter using $1.
+function CheckFiles() {
+# This function simply calls the function selected here.
+# OPTIONS: FuncExtractor_DisplayOnly | FuncExtractor_SaveData
+	FuncExtractor_SaveData
+}
+
+function FuncExtractor_DisplayOnly() {
+	# Define the directory to search
+	DIRECTORY="." # Replace with your actual directory path
+
+	# Check if the directory exists
+	if [ -d "$DIRECTORY" ]; then
+    	# Loop through all files in the specified directory
+    	for file in "$DIRECTORY"/*; do
+        	# Check if the item is a regular file (not a directory)
+        	if [ -f "$file" ]; then
+            	echo "Processing file: $file"
+            	# You can perform operations on the file here
+            	# For example, to read its content:
+		# Doing a double grep here.
+		# The -h suppresses the "Processing File:" display.
+            	cat "$file" | grep -h function | grep -h {
+        	fi
+    	done
+	else
+    	echo "Directory '$DIRECTORY' not found."
+	fi
+}
+
+function FuncExtractor_SaveData() {
+        # Define the directory to search
+        DIRECTORY="." # Replace with your actual directory path
+
+        # Check if the directory exists
+        if [ -d "$DIRECTORY" ]; then
+        # Check if FunctionsList.txt exists: Delete if found.
+        if [ -f FunctionsList.txt ]; then
+		rm -i FunctionsList.txt
+	fi
+	# Loop through all files in the specified directory
+        for file in "$DIRECTORY"/*; do
+                # Check if the item is a regular file (not a directory)
+                if [ -f "$file" ]; then
+                # echo "Processing file: $file"
+                # You can perform operations on the file here
+                # For example, to read its content:
+                # Doing a double grep here.
+                # The -h suppresses the "Processing File:" display.
+                cat "$file" | grep -h function | grep -h { >> FunctionsList.txt
+                fi
+        done
+        else
+        echo "Directory '$DIRECTORY' not found."
+        fi
+}
+
+# Calls both strip functions in a single run.
+function PrepFunctionsList() {
+        PrepFunctionsList_StripFunction
+	# DO NOT USE ! Not Working Yet. 
+	# PrepFunctionsList_StripBrackets
+}
+
+# Strip string 'function' from files.
+function PrepFunctionsList_StripFunction() {
+	# Define $Sed_String
+	Sed_String="function" # String for sed to remove.
+	echo "Preparing Functions List..."
+	echo "Stripping Unnecessary Content from File: [Function]"
+	# Below Line not used - Obsoleted.
+	# sed 's/^.\{8\}//' FunctionsList.txt
+	# Remove string 'function '
+	sed 's/function //g' FunctionsList.txt > RunMain_Pre.sh	
+	# Remove string '() {'
+	sed 's/() {//g' RunMain_Pre.sh > RunMain_Post.sh
+}
+
+# DO NOT USE ! Not Working Yet. 
+# Strip string '() {` from files.
+function PrepFunctionsList_StripBrackets() {
+		# Define $Sed_String
+		Sed_String="() {" # String for sed to remove.
+        echo "Preparing Functions List..."
+        echo "Stripping Unnecessary Content from File: [Brackets] "
+        # Below Line not used - Obsoleted.
+        # sed 's/^.\{8\}//' FunctionsList.txt
+        # Remove string 'function '
+        ## sed 's/function //g' FunctionsList.txt > RunMain_Pre.sh
+        # Remove string '() {'
+        sed 's/() {//g' RunMain_Pre.sh > RunMain_Post.sh
+}        
+
+# Generate RunMain.sh
+function FileCopy() {
+echo "Copying RunMain_Post.sh as RunMain.sh..."
+        cp -v RunMain_Post.sh RunMain.sh
+        echo "Setting RunMain.sh as Executable..."
+        chmod a+x RunMain.sh
+}
+
+# Remove temporary files.
+function CleanFiles() {
+	rm -i RunMain_Pre.sh
+	rm -i RunMain_Post.sh
+}

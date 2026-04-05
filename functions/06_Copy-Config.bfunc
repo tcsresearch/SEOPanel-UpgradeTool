@@ -1,0 +1,16 @@
+function CopyConfig() {
+	if [ -f seopanel_old_*/config/sp-config.php ]; then
+		CopyOldConfig
+	else
+		CopyConfigFromSample
+fi
+
+function CopyOldConfig() {
+# Copy your old config to new installation
+	cp seopanel_old_*/config/sp-config.php seopanel/config/
+}
+
+function CopyConfigFromSample() {
+# If that file doesn't exist, copy from sample
+	cp seopanel/config/sp-config-sample.php seopanel/config/sp-config.php
+}

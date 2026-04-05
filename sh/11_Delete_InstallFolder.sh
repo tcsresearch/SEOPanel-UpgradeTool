@@ -1,0 +1,4 @@
+# Remove install directory (Critical for security!)
+rm -rf seopanel/install/
+
+# Or via FTP: Delete the install folder

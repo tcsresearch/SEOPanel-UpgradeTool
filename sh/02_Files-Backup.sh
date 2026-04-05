@@ -1,0 +1,4 @@
+# Create complete backup of SEO Panel directory
+tar -czf seopanel_backup_$(date +%Y%m%d_%H%M%S).tar.gz /path/to/seopanel/
+
+# Or using FTP client, download the entire seopanel folder

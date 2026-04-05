@@ -1,0 +1,26 @@
+function SetAllPermissions() {
+	SetProperOwnership
+	SetDirPermissions
+	SetFilePermissions
+	SetTempDirWritable
+}
+
+function SetProperOwnership() {
+# Set proper ownership (replace www-data with your web server user)
+	chown -R www-data:www-data seopanel/
+}
+
+function SetDirPermissions() {
+# Set directory permissions
+	find seopanel/ -type d -exec chmod 755 {} \;
+}
+
+function SetFilePermissions() {
+# Set file permissions
+	find seopanel/ -type f -exec chmod 644 {} \;
+}
+
+function SetTempDirWritable() {
+# Set tmp directory writable
+	chmod 755 seopanel/tmp/
+}
