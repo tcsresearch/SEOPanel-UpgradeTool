@@ -6,15 +6,18 @@ function CopyCustomFiles() {
 
 function CopyCustomPlugins() {
 # Copy custom plugins
-	cp -r seopanel_old_*/plugins/custom_* seopanel/plugins/
+	echo "Copying custom plugins..."
+	cp -Rv seopanel_old_*/plugins/custom_* seopanel/plugins/
 }
 
 function CopyCustomThemes() {
 # Copy custom themes (if any)
-	cp -r seopanel_old_*/themes/custom_* seopanel/themes/
+	echo "Copying custom themes (if they exist)..."
+	cp -Rv seopanel_old_*/themes/custom_* seopanel/themes/
 }
 
 function CopyCustomUploads() {
 # Copy any custom uploads or data
-	cp -r seopanel_old_*/uploads/* seopanel/uploads/
+	echo "Copying custom uploads..."
+	cp -Rv seopanel_old_*/uploads/* seopanel/uploads/
 }
