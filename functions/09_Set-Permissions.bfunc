@@ -7,20 +7,24 @@ function SetAllPermissions() {
 
 function SetProperOwnership() {
 # Set proper ownership (replace www-data with your web server user)
+	echo "Setting proper ownership for SEOPanel webroot..."
 	chown -R www-data:www-data seopanel/
 }
 
 function SetDirPermissions() {
 # Set directory permissions
+	echo "Setting Directory Permissions..."
 	find seopanel/ -type d -exec chmod 755 {} \;
 }
 
 function SetFilePermissions() {
 # Set file permissions
+	echo "Setting File Permissions..."
 	find seopanel/ -type f -exec chmod 644 {} \;
 }
 
 function SetTempDirWritable() {
 # Set tmp directory writable
+	echo "Setting tmp Directory Writable..."
 	chmod 755 seopanel/tmp/
 }
