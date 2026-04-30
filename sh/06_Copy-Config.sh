@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Copy your old config to new installation
 cp seopanel_old_*/config/sp-config.php seopanel/config/
 
