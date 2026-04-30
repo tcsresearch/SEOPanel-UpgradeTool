@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ## TODO: Replace $SCRIPT_FILE with $1.
 # Testing by assigning $1 to match $SCRIPT_FILE below.
