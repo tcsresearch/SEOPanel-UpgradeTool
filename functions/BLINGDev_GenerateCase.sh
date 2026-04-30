@@ -7,8 +7,12 @@
 SCRIPT_FILE=$1
 
 # Extract function names
-function_names=$(grep -E '^(function )?[a-zA-Z_][a-zA-Z0-9_]*\(\)' "$SCRIPT_FILE" | \
-                 sed -E 's/^(function )?([a-zA-Z_][a-zA-Z0-9_]*)\(\).*/\2/')
+# The followintg code can be removed after testing. 
+  # function_names=$(grep -E '^(function )?[a-zA-Z_][a-zA-Z0-9_]*\(\)' "$SCRIPT_FILE" | \
+    #             sed -E 's/^(function )?([a-zA-Z_][a-zA-Z0-9_]*)\(\).*/\2/')
+
+function_names="$(grep -E '^(function )?[a-zA-Z_][a-zA-Z0-9_]*\(\)' "$SCRIPT_FILE" | \
+                 sed -E 's/^(function )?([a-zA-Z_][a-zA-Z0-9_]*)\(\).*/\2/')"
 
 # Generate Case Statement.
 # TODO: Save as separate file ?
