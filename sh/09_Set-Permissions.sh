@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Set proper ownership (replace www-data with your web server user)
 chown -R www-data:www-data seopanel/
 
