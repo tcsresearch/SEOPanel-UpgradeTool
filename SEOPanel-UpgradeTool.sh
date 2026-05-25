@@ -1,7 +1,11 @@
 # SEOPanel-UpgradeTool
 
+FuncDir="functions"
+ConfigDir="config"
+
 # Create the array
 FuncList=(
+    "Cecho.bfunc"
     "01_DB-Backup.bfunc"
     "02_Files-Backup.bfunc"
     "03_Rename_Folder.bfunc"
