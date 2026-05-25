@@ -14,7 +14,7 @@ CONFIG_DIR="$(pwd)/config"
 
 # CONFIG_FILE="test.ini"
 #  CONFIG_FILE="config.ini"
-  CONFIG_FILE="RepoSync-ng.conf"
+  CONFIG_FILE="SEOPanel-UpgradeTool.conf"
 
 FUNC_DIR="$(pwd)/functions"
 FUNC_FILE="lib_ini.bfunc"
