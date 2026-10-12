@@ -1,7 +1,22 @@
+function BackupInstallDir() {
+# Backup install directory before deleting it
+	echo "Backing Up Install Folder..."
+	tar -cvf SEOPanel_Install-$(date +%Y%m%d_%H%M%S).tar
+}
+
 function RemoveInstallDir() {
 # Remove install directory (Critical for security!)
 	echo "Removing Install Directory..."
 	rm -rf seopanel/install/
 
 # Or via FTP: Delete the install folder
+
+function RestoreInstallDir() {
+# Restore install directory
+## TODO: Read and display list of backed up files and allow a menu to choose the file.
+##		Remove old backups to prevent disk space usage piling up.
+	echo "Restoring Install Folder..."
+	tar -xvf SEOPanel_Install-$(date +%Y%m%d_%H%M%S).tar
+}
+
 }
