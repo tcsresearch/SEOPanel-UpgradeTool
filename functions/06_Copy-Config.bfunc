@@ -4,6 +4,7 @@ function CopyConfig() {
 	else
 		CopyConfigFromSample
 fi
+}
 
 function CopyOldConfig() {
 # Copy your old config to new installation
