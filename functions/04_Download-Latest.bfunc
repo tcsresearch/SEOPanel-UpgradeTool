@@ -1,4 +1,7 @@
+function Download_Latest_Release() {
 # Download latest version
-wget https://www.seopanel.org/download/seo-panel-latest.zip
-
-# Or download from: https://www.seopanel.org/download/
+echo "Downloading latest SEOPanel release..."
+  wget https://www.seopanel.org/download/seo-panel-latest.zip
+echo " "
+  # Or download from: https://www.seopanel.org/download/
+}
