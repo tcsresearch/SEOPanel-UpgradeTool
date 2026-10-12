@@ -1,0 +1,17 @@
+function DisplayBanner() {
+  echo "SEOPanel-UpgradeTool - Version $SUT_Version"
+  echo " "
+}
+
+function ShowConfig() {
+  echo "Database Configuration"
+  echo "  DB Name: $DB_NAME"
+  echo "  DB User: $DB_USER"
+  echo "  DB Pass: $DB_PASS"
+  echo "  DB Location: $DB_LOCATION"
+  echo " "
+  echo "Backup Configuration"
+  echo "  Backup Path: $FileBackupPath"
+  echo " "
+}
+  
