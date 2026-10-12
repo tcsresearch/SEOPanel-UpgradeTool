@@ -11,7 +11,7 @@
 # 	Enable Cecho
 
 ####################################################################################################################################
-# Define Files and Folders.													   #
+# Define Files and Folders #																									   #
 ####################################################################################################################################
 
 # Colors for Cecho-like output
@@ -34,7 +34,7 @@ FUNC_DIR="$(pwd)/functions"
 PROFILE_DIR="$(pwd)/profiles"
 
 ####################################################################################################################################
-# Display Stuff															   #
+# Display Functions #																											   #
 ####################################################################################################################################
 
 echo " "
@@ -52,7 +52,7 @@ function NewLine() {
 
 
 ####################################################################################################################################
-# Source If Exists Function 													   #
+# Source If Exists Function # 																									   #
 ####################################################################################################################################
 # Function to source files in a given directory with a specific extension
 
@@ -78,34 +78,42 @@ source_files_if_exist() {
 # DisplayLine
 
 ####################################################################################################################################
-# Source configuration files													   #
+# Define Sourcing Functions: Configs / Functions / Profiles #																	   #
 ####################################################################################################################################
 
+function PreLoad_Configs() {
 ## source_files_if_exist "config" "*.conf"
 # source_files_if_exist "$(pwd)/config" "*.conf"
 source_files_if_exist "$CONFIG_DIR" "*.conf"
 # DisplayLine
 NewLine
+}
 
+function PreLoad_Functions() {
 # Source function files
 ## source_files_if_exist "functions" "*.bfunc"
 # source_files_if_exist "$(pwd)/functions" "*.bfunc"
 source_files_if_exist "$FUNC_DIR" "*.bfunc"
 # DisplayLine
 NewLine
-
+}
+function PreLoad_Profiles() {
 # Source profile files
 ## source_files_if_exist "profiles" "*.bprofile"
 source_files_if_exist "$(pwd)/profiles" "*.bprofile"
 source_files_if_exist "$PROFILE_DIR" "*.bprofile"
 # DisplayLine
 NewLine
-
+}
 
 ####################################################################################################################################
-# Finish PreLoad														   #
+# MAIN PROGRAM #																												   #
 ####################################################################################################################################
-# Continue with the rest of your script...
+# Run Our PreLoader Functions
+PreLoad_Configs
+PreLoad_Functions
+PreLoad_Profiles
+
 
 DisplayLine
 echo "Advanced Preload Completed."
