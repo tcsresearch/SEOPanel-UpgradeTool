@@ -1,9 +1,12 @@
 function UpdateCron() {
-# TODO: How to perform the edit via script (sed probably won't work!
-# 	Google 'How To Eedit Crontab via BASH script'
+# TODO: How to perform the edit via script (sed probably won't work!)  Consider using SimonSed.
+# 	Google 'How To Edit Crontab via BASH script'
 
+#####################################################################################################################################################################
+# EXAMPLES #																																						#
+#####################################################################################################################################################################
 
-## METHOD 1: Add an Entry (Non-Destructive
+## METHOD 1: Add an Entry (Non-Destructive)
 # The safest way to append a new job is to list the existing entries, append your new command, and pipe the entire output back into crontab.
 
 	# EXAMPLE #
@@ -90,6 +93,7 @@ function UpdateCron() {
 
 
 ############################################################################################################
+
 # TODO: Place Updated Code Here #
 
 # Edit crontab
