@@ -72,24 +72,22 @@ function NewLine() {
 # Function to confirm a file exists before sourcing it.
 
 SanityChecker_WithColor() {
-local file="$1"
- if [[ -f "$file" ]]; then
-                echo "  ${brightyellow} Sourcing: ${brightblue} $file ${reset}"
-                source "$file"
-            fi
-        # done
+    local file="$1"
+    
+    if [[ -f "$file" ]]; then
+        echo -e "${brightyellow}Sourcing: ${brightblue}$file${reset}"
+        source "$file"
     else
-        echo "${red} ERROR: File not found: $file ${reset}"
+        echo -e "${red}ERROR: File not found: $file${reset}"
     fi
 }
 
 SanityChecker_NoColor() {
-local file="$1"
- if [[ -f "$file" ]]; then
-                echo "  Sourcing: $file "
-                source "$file"
-            fi
-        done
+	local file="$1"
+
+ 	if [[ -f "$file" ]]; then
+    	echo "  Sourcing: $file "
+        source "$file"
     else
         echo "	ERROR: File not found: $file "
     fi
