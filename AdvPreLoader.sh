@@ -7,6 +7,11 @@ PreLoader_Version="26.10"
 #	- Colorized folder not found messasge on Line 73
 #	- Improved ASCII Headings
 #	- Moved preloading to individial functions
+# 	- Added $COLORS_FILE_LOADED variable
+#	- Enabled Runtime Configurations section.  Allows enabling/disabling Configs/Functions/Profiles individually.
+#	- Improved sourcing of $COLORS_FILE w/ improved error handling.
+#	- Renamed function source_files_if_exist to source_folder_if_exist.
+# 	- Began work on improved SanityChecker functions based on whether $COLORS_FILE_LOADED is TRUE or FALSE.
 
 
 # TODO: Add to BLING
