@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
 # BLING PreLoader Utility
-#
+# Version: 26.10
+#	- Fixed output bug on Line 66: ${reset} was missing.
+#	- Moved to Colors2.conf
+#	- Colorized folder not found messasge on Line 73
+
+
 # TODO: Add to BLING
 # 	Enable Cecho
 
@@ -9,23 +14,24 @@
 # Define Files and Folders.													   #
 ####################################################################################################################################
 
-
-CONFIG_DIR="$(pwd)/config"
-
-# CONFIG_FILE="test.ini"
-#  CONFIG_FILE="config.ini"
-  CONFIG_FILE="SEOPanel-UpgradeTool.conf"
-
-FUNC_DIR="$(pwd)/functions"
-FUNC_FILE="lib_ini.bfunc"
-
 # Colors for Cecho-like output
-COLORS_FILE="Colors.conf"
+COLORS_FILE="Colors2.conf"
 
 # Source our Color Config
 if [ -f "$CONFIG_DIR"/"$COLORS_FILE" ]; then
         source "$CONFIG_DIR"/"$COLORS_FILE"
 fi
+
+
+CONFIG_DIR="$(pwd)/config"
+# CONFIG_FILE="test.ini"
+#  CONFIG_FILE="config.ini"
+  CONFIG_FILE="SEOPanel-UpgradeTool.conf"
+
+FUNC_DIR="$(pwd)/functions"
+  FUNC_FILE="lib_ini.bfunc"
+
+PROFILE_DIR="$(pwd)/profiles"
 
 ####################################################################################################################################
 # Display Stuff															   #
@@ -60,12 +66,12 @@ source_files_if_exist() {
         for file in "$dir"/$pattern; do
             # Check if the glob found actual files (and not just the literal pattern if no files match)
             if [[ -f "$file" ]]; then
-                echo "  ${brightyellow} Sourcing: ${brightblue} $file"
+                echo "  ${brightyellow} Sourcing: ${brightblue} $file ${reset}"
                 source "$file"
             fi
         done
     else
-        echo "Directory not found: $dir"
+        echo "${red} Directory not found: $dir ${reset}"
     fi
 }
 
@@ -76,19 +82,22 @@ source_files_if_exist() {
 ####################################################################################################################################
 
 ## source_files_if_exist "config" "*.conf"
-source_files_if_exist "$(pwd)/config" "*.conf"
+# source_files_if_exist "$(pwd)/config" "*.conf"
+source_files_if_exist "$CONFIG_DIR" "*.conf"
 # DisplayLine
 NewLine
 
 # Source function files
 ## source_files_if_exist "functions" "*.bfunc"
-source_files_if_exist "$(pwd)/functions" "*.bfunc"
+# source_files_if_exist "$(pwd)/functions" "*.bfunc"
+source_files_if_exist "$FUNC_DIR" "*.bfunc"
 # DisplayLine
 NewLine
 
 # Source profile files
 ## source_files_if_exist "profiles" "*.bprofile"
 source_files_if_exist "$(pwd)/profiles" "*.bprofile"
+source_files_if_exist "$PROFILE_DIR" "*.bprofile"
 # DisplayLine
 NewLine
 
