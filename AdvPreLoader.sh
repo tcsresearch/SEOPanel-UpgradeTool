@@ -77,7 +77,7 @@ local file="$1"
                 echo "  ${brightyellow} Sourcing: ${brightblue} $file ${reset}"
                 source "$file"
             fi
-        done
+        # done
     else
         echo "${red} ERROR: File not found: $file ${reset}"
     fi
