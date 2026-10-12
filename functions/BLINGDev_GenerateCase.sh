@@ -24,7 +24,7 @@ for func_name in $function_names; do
   echo "    ;;"
 done
 echo "  *)"
-echo "    echo \"Usage: $0 {$(echo $function_names | sed 's/ /|/g')}\""
+echo "    echo \"Usage: "$0" {$(echo "$function_names" | sed 's/ /|/g')}\""
 echo "    exit 1"
 echo "    ;;"
 echo "esac"
