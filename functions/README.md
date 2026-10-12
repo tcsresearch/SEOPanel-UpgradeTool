@@ -1,4 +1,4 @@
-# SEOPanel-UpgradeTool Functions
+# SEOPanel-UpgradeTool Function Libraries
 
 | File Name | Last Commit Message | Time |
 | :--- | :--- | :--- |
