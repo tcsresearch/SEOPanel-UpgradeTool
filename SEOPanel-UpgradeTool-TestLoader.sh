@@ -1,4 +1,7 @@
+#!/bin/env bash
+
 # SEOPanel-UpgradeTool TestLoader
+# DEPRICATED by AdvPreLoader.sh
 
 # TODO: Sanity Checks
 #        - Do folders exist?
