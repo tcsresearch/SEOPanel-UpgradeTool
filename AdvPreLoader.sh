@@ -10,7 +10,6 @@ PreLoader_Version="26.10"
 
 
 # TODO: Add to BLING
-# 	Enable Cecho
 
 ####################################################################################################################################
 # Define Files and Folders #																									   #
@@ -18,11 +17,18 @@ PreLoader_Version="26.10"
 
 # Colors for Cecho-like output
 COLORS_FILE="Colors2.conf"
+# Set to FALSE by default.  Will change to TRUE if $COLORS_FILE is sourced successfuilly.
+COLORS_FILE_LOADED="FALSE"
 
 # Source our Color Config
-if [ -f "$CONFIG_DIR"/"$COLORS_FILE" ]; then
-        source "$CONFIG_DIR"/"$COLORS_FILE"
+if [ -f "$CONFIG_DIR/$COLORS_FILE" ]; then
+    source "$CONFIG_DIR/$COLORS_FILE"
+	COLORS_FILE_LOADED="TRUE"
+	echo " ${green}Colors File $CONFIG_DIR/$COLORS_FILE Loaded Successfully. ${reset}"
+else
+    echo "ERROR: Color configuration file not found at $CONFIG_DIR/$COLORS_FILE" >&2
 fi
+
 
 
 CONFIG_DIR="$(pwd)/config"
@@ -60,13 +66,48 @@ function NewLine() {
 	echo " "
 }
 
+####################################################################################################################################
+# SanityChecker Functions #																										   #
+####################################################################################################################################
+# Function to confirm a file exists before sourcing it.
 
+SanityChecker_WithColor() {
+local file="$1"
+ if [[ -f "$file" ]]; then
+                echo "  ${brightyellow} Sourcing: ${brightblue} $file ${reset}"
+                source "$file"
+            fi
+        done
+    else
+        echo "${red} ERROR: File not found: $file ${reset}"
+    fi
+}
+
+SanityChecker_NoColor() {
+local file="$1"
+ if [[ -f "$file" ]]; then
+                echo "  Sourcing: $file "
+                source "$file"
+            fi
+        done
+    else
+        echo "	ERROR: File not found: $file "
+    fi
+}
+
+function SanityChecker() {
+# Alias function for pointing to either SanityChecker_WithColor or SanityChecker_NoColor, depending on whether or not $COLORS_FILE is loaded.
+	[[ "$COLORS_FILE_LOADED" == "TRUE" ]] && SanityChecker_WithColor
+
+	[[ "$COLORS_FILE_LOADED" == "FALSE" ]] && SanityChecker_NoColor
+}
+	
 ####################################################################################################################################
 # Source If Exists Function # 																									   #
 ####################################################################################################################################
 # Function to source files in a given directory with a specific extension
 
-source_files_if_exist() {
+source_folder_if_exist() {
     local dir="$1"
     local pattern="$2"
     if [[ -d "$dir" ]]; then
@@ -94,7 +135,7 @@ source_files_if_exist() {
 function PreLoad_Configs() {
 ## source_files_if_exist "config" "*.conf"
 # source_files_if_exist "$(pwd)/config" "*.conf"
-source_files_if_exist "$CONFIG_DIR" "*.conf"
+source_folder_if_exist "$CONFIG_DIR" "*.conf"
 # DisplayLine
 NewLine
 }
@@ -103,15 +144,15 @@ function PreLoad_Functions() {
 # Source function files
 ## source_files_if_exist "functions" "*.bfunc"
 # source_files_if_exist "$(pwd)/functions" "*.bfunc"
-source_files_if_exist "$FUNC_DIR" "*.bfunc"
+source_folder_if_exist "$FUNC_DIR" "*.bfunc"
 # DisplayLine
 NewLine
 }
 function PreLoad_Profiles() {
 # Source profile files
 ## source_files_if_exist "profiles" "*.bprofile"
-source_files_if_exist "$(pwd)/profiles" "*.bprofile"
-source_files_if_exist "$PROFILE_DIR" "*.bprofile"
+# source_files_if_exist "$(pwd)/profiles" "*.bprofile"
+source_folder_if_exist "$PROFILE_DIR" "*.bprofile"
 # DisplayLine
 NewLine
 }
@@ -119,6 +160,9 @@ NewLine
 ####################################################################################################################################
 # MAIN PROGRAM #																												   #
 ####################################################################################################################################
+
+# Sanity Checker: Colors File
+# SanityChecker
 
 # Only Run PreLoaders When Set To TRUE under Runtime Configuration.
 	# Check and run PreLoad_Configs if Enabled
