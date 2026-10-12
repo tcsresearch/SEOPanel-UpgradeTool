@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
 # BLING PreLoader Utility
-# Version: 26.10
+PreLoader_Version="26.10"
 #	- Fixed output bug on Line 66: ${reset} was missing.
 #	- Moved to Colors2.conf
 #	- Colorized folder not found messasge on Line 73
+#	- Improved ASCII Headings
+#	- Moved preloading to individial functions
 
 
 # TODO: Add to BLING
@@ -34,12 +36,20 @@ FUNC_DIR="$(pwd)/functions"
 PROFILE_DIR="$(pwd)/profiles"
 
 ####################################################################################################################################
+# Runtime Configuration #																										   #
+####################################################################################################################################
+
+PRELOAD_CONFIGS="TRUE"
+PRELOAD_FUNCTIONS="TRUE"
+PRELOAD_PROFILES="FALSE"
+
+####################################################################################################################################
 # Display Functions #																											   #
 ####################################################################################################################################
 
 echo " "
-echo "BLING PreLoader Utility"
-echo "-----------------------"
+echo "BLING PreLoader Utility - Version $PreLoader_Version"
+echo "-----------------------------------------------------"
 echo " "
 
 function DisplayLine() {
@@ -109,10 +119,17 @@ NewLine
 ####################################################################################################################################
 # MAIN PROGRAM #																												   #
 ####################################################################################################################################
-# Run Our PreLoader Functions
-PreLoad_Configs
-PreLoad_Functions
-PreLoad_Profiles
+
+# Only Run PreLoaders When Set To TRUE under Runtime Configuration.
+	# Check and run PreLoad_Configs if Enabled
+	[[ "$PRELOAD_CONFIGS" == "TRUE" ]] && PreLoad_Configs
+
+	# Check and run PreLoad_Functions if Enabled
+	[[ "$PRELOAD_FUNCTIONS" == "TRUE" ]] && PreLoad_Functions
+
+	# Check and run PreLoad_Profiles if Enabled
+	[[ "$PRELOAD_PROFILES" == "TRUE" ]] && PreLoad_Profiles
+
 
 
 DisplayLine
